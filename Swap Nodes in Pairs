@@ -1,0 +1,43 @@
+# Definition for singly-linked list.
+# class ListNode(object):
+#     def __init__(self, val=0, next=None):
+#         self.val = val
+#         self.next = next
+# https://leetcode.com/problems/swap-nodes-in-pairs/description/
+class Solution(object):
+    def swapPairs(self, head):
+        """
+        :type head: ListNode
+        :rtype: ListNode
+        """
+        # The logic for swapping the nodes is the same as for reversing a linked list of size 2. 
+        # However since they comprise a sub-list within a larger linked list, you need to add another pointer to keep track of the previous node to stitch to your swapped nodes.
+        # Initialize a dummy head to make things simpler, and attach it to the head node so you don't have to make a special case for the head node.
+        # Before swap: prev -> curr -> next
+        # After swap: prev -> next  -> curr
+        # Then update the pointers for the next group of nodes so that the new prev = curr.
+
+        dummy = ListNode(0)
+        dummy.next = head
+        newHead = dummy
+
+        prev = newHead              #points to dummy
+
+        while head and head.next:
+
+            #prep nodes for swap.
+            curr = head             #first real node
+            nexter = head.next      #next real node
+
+            #swap
+            prev.next = nexter
+            curr.next = nexter.next
+            nexter.next = curr
+        
+            #reinit pointers for next loop
+            prev = curr
+            head = curr.next
+
+        return dummy.next
+
+        
