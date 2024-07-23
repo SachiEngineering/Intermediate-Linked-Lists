@@ -1,0 +1,109 @@
+'''
+In this problem, we will be taking in a number and creating a linked list out of it, where each node has a value of a single digit in the number. The output should read in the same order as the input number.
+ 
+
+EXAMPLE(S)
+createLL(123)
+Output: 1 -> 2 -> 3  
+ 
+
+FUNCTION SIGNATURE
+func createLL(number: Int) -> Node:
+
+ -convert from the character in the string to an integer and then make a new node
+
+ link the nodes together 
+
+-approach 2: using mod to get all the numbers separately 
+'''
+class ListNode:
+    def __init__(self, value = 0, next= None):
+        self.value = value
+        self.next = next
+
+# def createLL(number: int):
+
+#     number = str(number)
+
+#     #take first index of string version as the head
+#     #print(numberStr[0])
+
+#     head = ListNode(int(number[0]))
+#     curr = head
+
+#     #iterate over the whole list of numbers
+#     for each in number[1:]:
+#         #add a node to the linked list
+#         curr.next = ListNode(int(each))
+#         curr = curr.next
+
+#     #return head at the end
+#     return head
+
+# def createLL(number: int):
+#     #base case
+#     if number == 0:
+#         return ListNode(0)
+        
+#     #make an array of digits
+#     digits = []
+
+#     ##get all of the numbers using the modulus
+#     while number >0:
+#         #123
+#         #3 2 1
+#         digits.append(number%10)
+#         number //=10
+
+#     #create LL head
+#     digits.reverse()
+#     head = ListNode(digits[0])
+
+#     curr = head
+#     #make separate nodes
+#     for each in digits[1:]:
+#         #add a node to the linked list
+#         curr.next = ListNode(int(each))
+#         curr = curr.next
+
+#     #return final head
+#     return head
+
+
+# Formation Solution
+
+def createLL(number):
+    if number <= 0:
+        return ListNode(0)
+
+    currNum = number
+    prevNode = None
+    currNode = None
+    while currNum > 0:
+        nodeValue = currNum % 10
+        currNode = ListNode(nodeValue)
+        currNode.next = prevNode
+        prevNode = currNode
+        currNum = currNum // 10
+
+    return currNode
+
+
+
+##Verify 
+def arrayify(head):
+    curr = head
+    arr = []
+    while curr:
+        arr.append(curr.value)
+        curr = curr.next
+    return arr
+
+
+#LL1 = ListNode(1,ListNode(2,ListNode(3)))
+print(arrayify(createLL(123)))
+print(arrayify(createLL(0)))
+print(arrayify(createLL(12345)))
+
+################################################################
+
